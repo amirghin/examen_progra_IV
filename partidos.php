@@ -222,7 +222,6 @@ try{
 			$query = "SELECT pt.*, eq.nombre AS nombre_local, (SELECT nombre FROM equipos WHERE pt.codigo_equipo_visita=codigo_equipo) AS nombre_visita FROM partidos pt, equipos eq 
 			WHERE jornada={$jornada} AND codigo_equipo_local='{$local}' AND codigo_equipo_visita='{$visita}' AND pt.codigo_equipo_local=eq.codigo_equipo";
 			
-			echo $query;
 			$resultado = mysqli_query($con, $query);
 			
 			if(mysqli_num_rows($resultado) > 0){

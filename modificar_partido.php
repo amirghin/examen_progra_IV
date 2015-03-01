@@ -11,7 +11,7 @@ if(isset($_POST["jornada"], $_POST["equipo_local"], $_POST["equipo_visita"])){
 
 	
 	$partido->buscar_juego($conexion, $_POST["jornada"], $_POST["equipo_local"], $_POST["equipo_visita"]);
-	echo $partido->hora_partido;
+	
 	
 
 
@@ -83,7 +83,7 @@ if(isset($_POST["jornada"], $_POST["equipo_local"], $_POST["equipo_visita"])){
 
 		 <tr>
 		  <td>Hora Partido:</td>
-		  <td><input type="time" name="hora_partido"  required="required" step="1" value="" min="09:00:00" max="20:00:00"<?php echo $partido->disabled_campos;?> value=<?php echo $partido->hora_partido;?> ></td>
+		  <td><input type="time" name="hora_partido"  required="required" step="1" min="09:00:00" max="20:00:00"<?php echo $partido->disabled_campos;?> value=<?php echo $partido->hora_partido;?> ></td>
 		 </tr>
 		 <tr>
 		 	<td align="center"><input type="submit" value="Buscar" name="Buscar"></td>
