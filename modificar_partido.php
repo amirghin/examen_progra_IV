@@ -10,18 +10,23 @@ $partido = new partidos;
 if(isset($_POST["jornada"], $_POST["equipo_local"], $_POST["equipo_visita"])){
 
 	
-	$partido->buscar_juego($conexion, $_POST["jornada"], $_POST["equipo_local"], $_POST["equipo_visita"]);
+	$partido->buscar_partido($conexion, $_POST["jornada"], $_POST["equipo_local"], $_POST["equipo_visita"]);
 	
-	
-
 
 }
-
 
 ?>
 
 
 <html>
+<script>
+
+
+function limpiar_pantalla(){
+   parent.location='insertar_partido.php';
+}
+
+</script>
 <body>
 <form action="" method="POST">
 	<table style="width:10%" align="left">
@@ -88,7 +93,7 @@ if(isset($_POST["jornada"], $_POST["equipo_local"], $_POST["equipo_visita"])){
 		 <tr>
 		 	<td align="center"><input type="submit" value="Buscar" name="Buscar"></td>
 		 	<td align="center"><input type="submit" value="Actualizar" name="Actualizar"></td>
-		 	<td align="center"><input type="submit" value="Cancelar" name="Cancelar"></td>
+		 	<td align="center"><input type="button" value="Cancelar" name="Cancelar" id="Cancelar" onclick="limpiar_pantalla();" /></td>
 		 </tr>
 
 		 

@@ -86,6 +86,8 @@ try{
 
 	$query = "SELECT * FROM partidos WHERE jornada='{$jornada}' AND codigo_equipo_local={$local} AND codigo_equipo_visita={$visita} AND goles_local IS NULL AND goles_visita IS NULL";
 	$resultado = mysqli_query($con, $query);
+	$cant_juegos =  mysqli_num_rows($resultado);
+
 
 	if($cant_juegos	> 0){
 
@@ -216,7 +218,7 @@ function crear_tabla($con, $equipo){
 
 }
 
-function buscar_juego($con, $jornada, $local, $visita){
+function buscar_partido($con, $jornada, $local, $visita){
 
 try{
 			$query = "SELECT pt.*, eq.nombre AS nombre_local, (SELECT nombre FROM equipos WHERE pt.codigo_equipo_visita=codigo_equipo) AS nombre_visita FROM partidos pt, equipos eq 
@@ -261,6 +263,53 @@ try{
 }
 
 
+function modificar_partido($con, $goles_local, $goles_visita, $fecha, $hora){
+
+try{
+		$update = "UPDATE partidos SET goles_local={$goles_local}, goles_visita={$goles_visita}, fecha_partido='{$fecha}', hora_partido='{$hora}'
+					WHERE jornada={$this->jornada} AND codigo_equipo_local='{$this->codigo_equipo_local}' AND codigo_equipo_visita='{$this->codigo_equipo_visita}'";
+
+		$resultado = mysqli_query($con, $update);
+
+		if(!$resultado){
+
+			throw new Exception("Error al modificar juego");
+		}else{
+
+			$this->mensaje = "Se modifico con exito el juego";
+		}
+			
+	}catch(Exception $e){
+		$this->$mensaje = $e->GetMessage();
+
+	}
+
+}
+
+function eliminar_partido($con, $jornada, $local, $visita){
+
+		
+		try{
+		$delete = "DELETE FROM partidos WHERE jornada={$jornada} AND codigo_equipo_local='{$local}' AND codigo_equipo_visita='{$visita}'";
+
+
+		$resultado = mysqli_query($con, $delete);
+
+		if(!$resultado){
+
+			throw new Exception("Error al eliminar juego");
+		}else{
+
+			$this->mensaje = "Se elimino el partido con exito";
+		}
+			
+
+		}catch(Exception $e){
+			$this->mensaje = $e->GetMessage();
+
+		}
+
+}
 
 
 }
