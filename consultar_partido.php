@@ -14,7 +14,9 @@ if(isset($_GET["equipo"])){
 
 
 <html>
+<head>
 <body>
+
 <form action="">
 		<select name="equipo" required="required">
 		   		<option disabled selected> -- Seleccione el Equipo a Consultar -- </option>

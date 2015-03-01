@@ -1,9 +1,19 @@
 <?php
 class partidos{
 
-
-
+public $jornada;
+public $codigo_equipo_local;
+public $codigo_equipo_visita;
+public $goles_local;
+public $goles_visita;
+public $fecha_partido;
+public $hora_partido;
 public $mensaje = "";
+public $disabled_buscar = "";
+public $disabled_campos = "disabled";
+public $drop_jornada = " -- Seleccione una Jornada -- ";
+public $drop_local = " -- Seleccione el Equipo Local -- ";
+public $drop_visita = " -- Seleccione el Equipo Visita -- ";
 
 
 function cantidad_partidos($con, $fecha){
@@ -204,14 +214,57 @@ function crear_tabla($con, $equipo){
 
 	}
 
+}
+
+function buscar_juego($con, $jornada, $local, $visita){
+
+try{
+			$query = "SELECT pt.*, eq.nombre AS nombre_local, (SELECT nombre FROM equipos WHERE pt.codigo_equipo_visita=codigo_equipo) AS nombre_visita FROM partidos pt, equipos eq 
+			WHERE jornada={$jornada} AND codigo_equipo_local='{$local}' AND codigo_equipo_visita='{$visita}' AND pt.codigo_equipo_local=eq.codigo_equipo";
+			
+			echo $query;
+			$resultado = mysqli_query($con, $query);
+			
+			if(mysqli_num_rows($resultado) > 0){
+
+				
+				while ($row = mysqli_fetch_assoc($resultado)) {
+					$this->jornada = $row["jornada"];
+					$this->codigo_equipo_local = $row["codigo_equipo_local"];
+					$this->codigo_equipo_visita = $row["codigo_equipo_visita"];
+					$this->goles_local = $row["goles_local"];
+					$this->goles_visita = $row["goles_visita"];
+					$this->fecha_partido = $row["fecha_partido"];
+					$this->hora_partido = $row["hora_partido"];
+					$this->drop_jornada = $row["jornada"];
+					$this->drop_local = $row["nombre_local"];
+					$this->drop_visita = $row["nombre_visita"];
+				}
+
+				$this->disabled_buscar = "disabled";
+				$this->disabled_campos = "";
+
+
+
+
+			}else{
+
+				throw new Exception("No se encontraron datos para ese partido");
+			}
+
+
+
+}catch(Exception $e){
+
+		$this->$mensaje = $e->GetMessage();
+
+	}
+}
+
 
 
 
 }
-
-
-}
-
 
 
 ?>
