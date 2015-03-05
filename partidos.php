@@ -21,9 +21,10 @@ function cantidad_partidos($con, $fecha){
 		$query = "SELECT * FROM partidos WHERE fecha_partido='{$fecha}'";
 		$resultado = mysqli_query($con, $query);
 		$cant_juegos =  mysqli_num_rows($resultado);
+
 		
-		if ($cant_juegos <= 5){
-				return $cant_juegos;
+		if ($cant_juegos < 5){
+				return True;
 		}else{
 
 			throw new Exception("No se pueden ingresar mas de 5 juegos por dia");
@@ -31,7 +32,7 @@ function cantidad_partidos($con, $fecha){
 
 
 	}catch (Exception $e){
-			 $this->$mensaje = $e->GetMessage();
+			 $this->mensaje = $e->GetMessage();
 	}
 
 }
@@ -71,7 +72,7 @@ function tiempo_entre_partidos($con, $fecha, $hora){
 
 
 	}catch (Exception $e){
-			 $this->$mensaje = $e->GetMessage();
+			 $this->mensaje = $e->GetMessage();
 	}
 
 		
@@ -101,7 +102,7 @@ try{
 
 
 }catch(Exception $e){
-			 $this->$mensaje = $e->GetMessage();
+			 $this->mensaje = $e->GetMessage();
 
 
 
@@ -120,7 +121,7 @@ try{
 		echo "<option value=\"{$row["codigo_equipo"]}\">{$row["nombre"]}</option>";
 	}
 }catch(Exception $e){
-			$this->$mensaje = $e->GetMessage();
+			$this->mensaje = $e->GetMessage();
 
 
 
@@ -153,7 +154,7 @@ function insertar_partido($con, $jornada, $local, $visita, $goles_local, $goles_
 		}
 			
 	}catch(Exception $e){
-		$this->$mensaje = $e->GetMessage();
+		$this->mensaje = $e->GetMessage();
 
 	}
 }
@@ -212,7 +213,7 @@ function crear_tabla($con, $equipo){
 
 	}catch(Exception $e){
 
-		$this->$mensaje = $e->GetMessage();
+		$this->mensaje = $e->GetMessage();
 
 	}
 
@@ -257,7 +258,7 @@ try{
 
 }catch(Exception $e){
 
-		$this->$mensaje = $e->GetMessage();
+		$this->mensaje = $e->GetMessage();
 
 	}
 }
@@ -280,7 +281,7 @@ try{
 		}
 			
 	}catch(Exception $e){
-		$this->$mensaje = $e->GetMessage();
+		$this->mensaje = $e->GetMessage();
 
 	}
 

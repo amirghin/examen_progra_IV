@@ -5,7 +5,7 @@ include_once("partidos.php");
 
 $partido = new partidos;
 
-if(isset($_GET["equipo"])){
+if(isset($_POST["equipo"])){
 
 
 }
@@ -17,7 +17,7 @@ if(isset($_GET["equipo"])){
 <head>
 <body>
 
-<form action="">
+<form action="" method="POST">
 		<select name="equipo" required="required">
 		   		<option disabled selected> -- Seleccione el Equipo a Consultar -- </option>
 				<?php $partido->lista_equipos($conexion);?>
@@ -26,8 +26,8 @@ if(isset($_GET["equipo"])){
 		<input type="submit" value="buscar" name="buscar">
 
 		<br><br>
-		<?php $partido->crear_tabla($conexion, $_GET["equipo"]);
-				echo $partido->mensaje;
+		<?php $partido->crear_tabla($conexion, $_POST["equipo"]);
+		echo $partido->mensaje;
 		?>
 
 </form>

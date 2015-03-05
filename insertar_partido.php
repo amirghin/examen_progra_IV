@@ -6,16 +6,17 @@ include_once("partidos.php");
 
 $partido = new partidos;
 
-if(isset($_GET["jornada"], $_GET["equipo_local"], $_GET["equipo_visita"], $_GET["fecha_partido"], $_GET["hora_partido"])){
+if(isset($_POST["jornada"], $_POST["equipo_local"], $_POST["equipo_visita"], $_POST["fecha_partido"], $_POST["hora_partido"])){
 
-	if($_GET["equipo_local"] != $_GET["equipo_visita"]){
+	if($_POST["equipo_local"] != $_POST["equipo_visita"]){
 
-			$hora_permitida = $partido->hora_permitida($_GET["hora_partido"]);
-			$tiempo_entre_partidos = $partido->tiempo_entre_partidos($conexion, $_GET["fecha_partido"], $_GET["hora_partido"]);
+			$hora_permitida = $partido->hora_permitida($_POST["hora_partido"]);
+			$tiempo_entre_partidos = $partido->tiempo_entre_partidos($conexion, $_POST["fecha_partido"], $_POST["hora_partido"]);
+			$cantidad_partidos = $partido->cantidad_partidos($conexion, $_POST["fecha_partido"]);
 			
-			if($hora_permitida == "S" AND $tiempo_entre_partidos == "S"){
+			if($hora_permitida == "S" AND $tiempo_entre_partidos == "S" AND $cantidad_partidos){
 				
-				$partido->insertar_partido($conexion, $_GET["jornada"], $_GET["equipo_local"], $_GET["equipo_visita"], $_GET["goles_local"], $_GET["goles_visita"], $_GET["fecha_partido"], $_GET["hora_partido"]);
+				$partido->insertar_partido($conexion, $_POST["jornada"], $_POST["equipo_local"], $_POST["equipo_visita"], $_POST["goles_local"], $_POST["goles_visita"], $_POST["fecha_partido"], $_POST["hora_partido"]);
 			
 			}elseif ($hora_permitida ==	"N"){
 				$partido->mensaje =  "El horario del partido no esta en el rango horario permitido";
@@ -39,7 +40,7 @@ if(isset($_GET["jornada"], $_GET["equipo_local"], $_GET["equipo_visita"], $_GET[
 
 <html>
 <body>
-<form action="">
+<form action="" method="POST">
 	<table style="width:10%" align="left">
 		 <tr>
 		   <td>Jornada:</td>

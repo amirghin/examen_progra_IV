@@ -5,7 +5,7 @@ include_once("partidos.php");
 
 $partido = new partidos;
 
-
+//Profe, esta seccion es la parte de buscar el partido, por eso va en GET, en el ejemplo que usted nos puso, usted lo hizo asi.
 if(isset($_GET["jornada"], $_GET["equipo_local"], $_GET["equipo_visita"])){
 
 	
@@ -14,7 +14,7 @@ if(isset($_GET["jornada"], $_GET["equipo_local"], $_GET["equipo_visita"])){
 
 }
 
-
+//Este si va en POST por que es el que modifica
 if(isset($_POST["goles_local"], $_POST["goles_visita"], $_POST["fecha_partido"], $_POST["hora_partido"])){
 
 	$partido->modificar_partido($conexion, $_POST["goles_local"], $_POST["goles_visita"], $_POST["fecha_partido"], $_POST["hora_partido"]);
@@ -41,8 +41,6 @@ function limpiar_pantalla(){
 
 </script>
 <body>
-<p id="demo"></p>
-
 <form action="" method="POST">
 	<table style="width:10%" align="left">
 		 <tr>
