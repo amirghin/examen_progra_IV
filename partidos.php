@@ -85,7 +85,7 @@ function partido_jugado($con, $jornada, $local, $visita){
 
 try{
 
-	$query = "SELECT * FROM partidos WHERE jornada='{$jornada}' AND codigo_equipo_local={$local} AND codigo_equipo_visita={$visita} AND goles_local IS NULL AND goles_visita IS NULL";
+	$query = "SELECT * FROM partidos WHERE jornada='{$jornada}' AND codigo_equipo_local='{$local}' AND codigo_equipo_visita='{$visita}' AND goles_local IS NULL AND goles_visita IS NULL";
 	$resultado = mysqli_query($con, $query);
 	$cant_juegos =  mysqli_num_rows($resultado);
 
@@ -167,13 +167,13 @@ function crear_tabla($con, $equipo){
 						pt.codigo_equipo_visita AS 'Codigo_Equipo_Rival',(SELECT nombre FROM equipos WHERE codigo_equipo=pt.codigo_equipo_visita) AS 'Nombre_Equipo_Rival',
 						CONCAT_WS(':', goles_local, goles_visita) AS Marcador
 						FROM equipos eq, partidos pt
-						WHERE pt.codigo_equipo_local={$equipo} AND eq.codigo_equipo=pt.codigo_equipo_local
+						WHERE pt.codigo_equipo_local='{$equipo}' AND eq.codigo_equipo=pt.codigo_equipo_local
 						UNION
 					SELECT pt.codigo_equipo_visita AS 'Codigo_Equipo', eq.nombre AS 'Nombre_Equipo', pt.jornada AS 'Numero de jornada', fecha_partido AS 'Fecha del partido',
 					pt.codigo_equipo_local AS 'Codigo_Equipo_Rival', (SELECT nombre FROM equipos WHERE codigo_equipo=pt.codigo_equipo_local) AS 'Nombre_Equipo_Rival',
 					CONCAT_WS(':', goles_visita, goles_local) AS Marcador
 					FROM equipos eq, partidos pt
-					WHERE pt.codigo_equipo_visita={$equipo} AND eq.codigo_equipo=pt.codigo_equipo_visita";
+					WHERE pt.codigo_equipo_visita='{$equipo}' AND eq.codigo_equipo=pt.codigo_equipo_visita";
 			$resultado = mysqli_query($con, $query);
 
 			if(!$resultado){
@@ -181,7 +181,7 @@ function crear_tabla($con, $equipo){
 
 			}else{
 				if(mysqli_num_rows($resultado) > 0){	
-					echo "<table>";
+					echo "<table align=\"center\">";
 					echo "<tr>
 							<th>Codigo_Equipo</th>
 							<th>Nombre_Equipo</th>

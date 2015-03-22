@@ -4,17 +4,25 @@ require_once("conexion.php");
 include_once("partidos.php");
 
 $partido = new partidos;
-
-if(isset($_POST["equipo"])){
-
-
-}
-
 ?>
 
-
+<!DOCTYPE html>
 <html>
 <head>
+
+<style>
+table {
+    border-collapse: collapse;
+    width: 50%;
+    
+}
+
+table, td, th {
+    border: 1px solid black;
+    text-align: center;
+}
+</style>
+
 <body>
 
 <form action="" method="POST">
@@ -26,9 +34,15 @@ if(isset($_POST["equipo"])){
 		<input type="submit" value="buscar" name="buscar">
 
 		<br><br>
-		<?php $partido->crear_tabla($conexion, $_POST["equipo"]);
-		echo $partido->mensaje;
+		<?php
+		if(isset($_POST["equipo"])){
+
+			$partido->crear_tabla($conexion, $_POST["equipo"]);
+
+		}
+
 		?>
+		<?php echo $partido->mensaje;?>
 
 </form>
 </body>

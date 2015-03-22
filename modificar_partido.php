@@ -18,6 +18,7 @@ if(isset($_GET["jornada"], $_GET["equipo_local"], $_GET["equipo_visita"])){
 if(isset($_POST["goles_local"], $_POST["goles_visita"], $_POST["fecha_partido"], $_POST["hora_partido"])){
 
 	$partido->modificar_partido($conexion, $_POST["goles_local"], $_POST["goles_visita"], $_POST["fecha_partido"], $_POST["hora_partido"]);
+	
 }
 
 ?>
